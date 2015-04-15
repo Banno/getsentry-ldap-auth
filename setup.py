@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """
-sentry-banno-auth
+sentry-ldap-auth
 ==============
 
 An extension for Sentry which authenticates users from
-Banno LDAP servers and auto-adds them to the Banno organization in sentry.
+an LDAP server and auto-adds them to the an organization in sentry.
 """
 from setuptools import setup, find_packages
 
@@ -26,6 +26,7 @@ setup(
     zip_safe=False,
     install_requires=install_requires,
     include_package_data=True,
+    download_url='https://github.com/banno/getsentry-ldap-auth/tarball/1.0',
     classifiers=[
         'Framework :: Django',
         'Intended Audience :: Developers',
