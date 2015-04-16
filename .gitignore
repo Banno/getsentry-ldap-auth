@@ -1,2 +1,3 @@
 *.pyc
 sentry_ldap_auth.egg-info
+dist
