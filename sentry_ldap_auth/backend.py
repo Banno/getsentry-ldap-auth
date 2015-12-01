@@ -2,7 +2,13 @@ from __future__ import absolute_import
 
 from django_auth_ldap.backend import LDAPBackend
 from django.conf import settings
-from sentry.models import Organization, OrganizationMember, OrganizationMemberType
+from sentry.models import (
+    Organization,
+    OrganizationMember,
+    OrganizationMemberType,
+    UserOption,
+)
+
 
 class SentryLdapBackend(LDAPBackend):
     def get_or_create_user(self, username, ldap_user):
@@ -29,12 +35,12 @@ class SentryLdapBackend(LDAPBackend):
         if not organizations or len(organizations) < 1:
             return model
 
-        if settings.AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE:
+        if getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE', None):
             member_type = getattr(OrganizationMemberType, settings.AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE)
         else:
             member_type = OrganizationMemberType.MEMBER
 
-        if settings.AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS:
+        if getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS', False):
             has_global_access = True
         else:
             has_global_access = False
@@ -47,5 +53,13 @@ class SentryLdapBackend(LDAPBackend):
             user=user,
             flags=getattr(OrganizationMember.flags, 'sso:linked'),
         )
+
+        if not getattr(settings, 'AUTH_LDAP_SENTRY_SUBSCRIBE_BY_DEFAULT', True):
+            UserOption.objects.set_value(
+                user=user,
+                project=None,
+                key='subscribe_by_default',
+                value='0',
+            )
 
         return model

@@ -25,7 +25,14 @@ Member type auto-added users are assigned. Valid values are 'MEMBER', 'ADMIN', '
 AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS = True
 ```
 Whether auto-created users should be granted global access within the default organization.
-
+ 
+```Python
+AUTH_LDAP_SENTRY_SUBSCRIBE_BY_DEFAULT = False
+```
+Whether new users should be subscribed to any new projects by default. Disabling
+this is useful for large organizations where a subscription to each project
+might be spammy.
+ 
 ### Sentry Options
 
 ```Python
