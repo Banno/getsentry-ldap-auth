@@ -35,18 +35,18 @@ class SentryLdapBackend(LDAPBackend):
         if not organizations or len(organizations) < 1:
             return model
 
-        if settings.AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE:
+        if getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE', None):
             member_type = getattr(OrganizationMemberType, settings.AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE)
         else:
             member_type = OrganizationMemberType.MEMBER
 
-        if settings.AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS:
+        if getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS', False):
             has_global_access = True
         else:
             has_global_access = False
 
         # Add the user to the organization with global access
-        member = OrganizationMember.objects.create(
+        OrganizationMember.objects.create(
             organization=organizations[0],
             type=member_type,
             has_global_access=has_global_access,
@@ -54,9 +54,9 @@ class SentryLdapBackend(LDAPBackend):
             flags=getattr(OrganizationMember.flags, 'sso:linked'),
         )
 
-        if not settings.AUTH_LDAP_SENTRY_SUBSCRIBE_BY_DEFAULT:
+        if not getattr(settings, 'AUTH_LDAP_SENTRY_SUBSCRIBE_BY_DEFAULT', True):
             UserOption.objects.set_value(
-                user=member.user,
+                user=user,
                 project=None,
                 key='subscribe_by_default',
                 value='0',
