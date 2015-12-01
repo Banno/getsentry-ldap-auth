@@ -15,7 +15,7 @@ install_requires = [
 
 setup(
     name='sentry-ldap-auth',
-    version='1.0',
+    version='1.1',
     author='Chad Killingsworth - Jack Henry and Associates, Inc.',
     author_email='chad.killingsworth@banno.com',
     url='http://github.com/banno/getsentry-ldap-auth',
@@ -26,7 +26,7 @@ setup(
     zip_safe=False,
     install_requires=install_requires,
     include_package_data=True,
-    download_url='https://github.com/banno/getsentry-ldap-auth/tarball/1.0',
+    download_url='https://github.com/banno/getsentry-ldap-auth/tarball/1.1',
     classifiers=[
         'Framework :: Django',
         'Intended Audience :: Developers',
