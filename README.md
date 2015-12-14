@@ -17,9 +17,9 @@ AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION = u'My Organization Name'
 Auto adds created user to the specified organization (matched by name) if it exists.
 
 ```Python
-AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE = 'MEMBER'
+AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE = 'member'
 ```
-Member type auto-added users are assigned. Valid values are 'MEMBER', 'ADMIN', 'OWNER'.
+Role type auto-added users are assigned. Valid values in a default installation of Sentry are 'member', 'admin', 'manager' & 'owner'. However, custom roles can also be added to Sentry, in which case these are also valid.
 
 ```Python
 AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS = True
@@ -78,7 +78,7 @@ AUTH_LDAP_CACHE_GROUPS = True
 AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
 
 AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION = u'My Organization Name'
-AUTH_LDAP_SENTRY_ORGANIZATION_MEMBER_TYPE = 'MEMBER'
+AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE = 'member'
 AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS = True
 
 AUTHENTICATION_BACKENDS = AUTHENTICATION_BACKENDS + (
