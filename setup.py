@@ -10,12 +10,12 @@ from setuptools import setup, find_packages
 
 install_requires = [
     'django-auth-ldap>=1.2.5',
-    'sentry>=7.4.0',
+    'sentry>=8.0.0',
 ]
 
 setup(
     name='sentry-ldap-auth',
-    version='1.1',
+    version='2.0',
     author='Chad Killingsworth - Jack Henry and Associates, Inc.',
     author_email='chad.killingsworth@banno.com',
     url='http://github.com/banno/getsentry-ldap-auth',

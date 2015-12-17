@@ -6,6 +6,9 @@ A Django custom authentication backend for [Sentry](https://github.com/getsentry
 * Users created by this backend are managed users. Managed fields are not editable through the Sentry account page.
 * Users may be auto-added to an Organization upon creation.
 
+## Prerequisites
+Versions 2.0 and newer require Sentry 8. For Sentry 7 support, use [the 1.1 release](https://github.com/Banno/getsentry-ldap-auth/releases/tag/1.1)
+
 ## Configuration
 This module extends the [django-auth-ldap](https://pythonhosted.org/django-auth-ldap/) and all the options it provides are supported.
 
