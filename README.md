@@ -71,8 +71,7 @@ AUTH_LDAP_REQUIRE_GROUP = None
 AUTH_LDAP_DENY_GROUP = None
 
 AUTH_LDAP_USER_ATTR_MAP = {
-    'first_name': 'givenName',
-    'last_name': 'sn',
+    'name': 'cn',
     'email': 'mail'
 }
 
