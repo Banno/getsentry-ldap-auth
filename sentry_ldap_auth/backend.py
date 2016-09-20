@@ -6,7 +6,6 @@ from sentry.models import (
     Organization,
     OrganizationMember,
     UserOption,
-    UserEmail
 )
 
 
@@ -20,10 +19,15 @@ class SentryLdapBackend(LDAPBackend):
 
         user.is_managed = True
 
-        UserEmail.objects.update(
-            user=user,
-            email=ldap_user.attrs.get('mail', ' ')[0] or '',
-        )
+        try:
+            from sentry.models import (UserEmail)
+        except ImportError:
+            pass
+        else:
+            UserEmail.objects.update(
+                user=user,
+                email=ldap_user.attrs.get('mail', ' ')[0] or '',
+            )
 
         # Check to see if we need to add the user to an organization
         if not settings.AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION:
