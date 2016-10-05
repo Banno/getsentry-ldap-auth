@@ -24,10 +24,12 @@ class SentryLdapBackend(LDAPBackend):
         except ImportError:
             pass
         else:
-            UserEmail.objects.update(
-                user=user,
-                email=ldap_user.attrs.get('mail', ' ')[0] or '',
-            )
+            userEmail = UserEmail.objects.get(user=user)
+            if not userEmail:
+                userEmail = UserEmail.objects.create(user=user)
+
+            userEmail.email=ldap_user.attrs.get('mail', ' ')[0] or ''
+            userEmail.save()
 
         # Check to see if we need to add the user to an organization
         if not settings.AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION:
