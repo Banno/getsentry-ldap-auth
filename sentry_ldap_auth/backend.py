@@ -24,9 +24,11 @@ class SentryLdapBackend(LDAPBackend):
         except ImportError:
             pass
         else:
-            userEmail = UserEmail.objects.get(user=user)
+            userEmail = UserEmail.objects.filter(user=user)
             if not userEmail:
                 userEmail = UserEmail.objects.create(user=user)
+            else:
+                userEmail = userEmail[0]
 
             if ldap_user.attrs:
                 userEmail.email=ldap_user.attrs.get('mail', ' ')[0] or ''
