@@ -30,7 +30,7 @@ class SentryLdapBackend(LDAPBackend):
             else:
                 userEmail = userEmail[0]
 
-            if 'AUTH_LDAP_DEFAULT_EMAIL_DOMAIN' in settings:
+            if not 'AUTH_LDAP_DEFAULT_EMAIL_DOMAIN' in settings:
                 email = ' '
             else:
                 email = username + '@' + settings.AUTH_LDAP_DEFAULT_EMAIL_DOMAIN
