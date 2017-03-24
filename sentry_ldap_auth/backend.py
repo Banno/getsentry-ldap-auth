@@ -36,9 +36,9 @@ class SentryLdapBackend(LDAPBackend):
                 email = username + '@' + settings.AUTH_LDAP_DEFAULT_EMAIL_DOMAIN
 
             if 'mail' in ldap_user.attrs:
-                userEmail.email=ldap_user.attrs.get('mail')[0]
+                userEmail.email = ldap_user.attrs.get('mail')[0]
             else:
-                userEmail.email=email
+                userEmail.email = email
             userEmail.save()
 
         # Check to see if we need to add the user to an organization
