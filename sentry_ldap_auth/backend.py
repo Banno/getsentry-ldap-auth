@@ -46,9 +46,9 @@ class SentryLdapBackend(LDAPBackend):
             return model
 
         # If the user is already a member of an organization, leave them be
-        orgs = OrganizationMember.objects.filter(user=user)
-        if orgs != None and len(orgs) > 0:
-            return model
+        # orgs = OrganizationMember.objects.filter(user=user)
+        # if orgs != None and len(orgs) > 0:
+        #     return model
 
         member_role = getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE', 'member')
         has_global_access = getattr(
