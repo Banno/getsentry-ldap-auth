@@ -35,6 +35,11 @@ AUTH_LDAP_SENTRY_SUBSCRIBE_BY_DEFAULT = False
 Whether new users should be subscribed to any new projects by default. Disabling
 this is useful for large organizations where a subscription to each project
 might be spammy.
+
+```Python
+AUTH_LDAP_DEFAULT_EMAIL_DOMAIN = 'example.com'
+```
+Default domain to append to username as the Sentry user's e-mail address when the LDAP user has no `mail` attribute.
  
 ### Sentry Options
 
