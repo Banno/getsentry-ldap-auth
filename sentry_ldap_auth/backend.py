@@ -58,15 +58,13 @@ class SentryLdapBackend(LDAPBackend):
         )
 
         # Find the default organization(s), and add the user as member
-        for org in settings.AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION:
-            organization = Organization.objects.filter(name=org)
+        organizations = Organization.objects.filter(
+            name__in=settings.AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION)
 
-            if not organization or len(organization) < 1:
-                continue
-
+        for org in organizations:
             # Add the user to the organization with global access
             OrganizationMember.objects.create(
-                organization=organization,
+                organization=org,
                 user=user,
                 role=member_role,
                 has_global_access=has_global_access,
