@@ -10,11 +10,12 @@ from sentry.models import (
 
 
 def _get_effective_sentry_role(group_names):
-    role_priority = {
-        'owner': 3,
-        'admin': 2,
-        'member': 1
-    }
+    role_priority_order = [
+        'member',
+        'admin',
+        'manager',
+        'owner',
+    ]
 
     role_mapping = getattr(settings, 'AUTH_LDAP_SENTRY_GROUP_ROLE_MAPPING')
 
@@ -26,7 +27,9 @@ def _get_effective_sentry_role(group_names):
     if not applicable_roles:
         return None
 
-    return max(applicable_roles, key=lambda role_name: role_priority[role_name])
+    highest_role = [role for role in role_priority_order if role in applicable_roles][-1]
+
+    return highest_role
 
 
 class SentryLdapBackend(LDAPBackend):
