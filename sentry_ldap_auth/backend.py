@@ -9,6 +9,26 @@ from sentry.models import (
 )
 
 
+def _get_effective_sentry_role(group_names):
+    role_priority = {
+        'owner': 3,
+        'admin': 2,
+        'member': 1
+    }
+
+    role_mapping = getattr(settings, 'AUTH_LDAP_SENTRY_GROUP_ROLE_MAPPING')
+
+    if not group_names or not role_mapping:
+        return None
+
+    applicable_roles = [role for role, groups in role_mapping.iteritems() if group_names.intersection(groups)]
+
+    if not applicable_roles:
+        return None
+
+    return max(applicable_roles, lambda role_name: role_priority[role_name])
+
+
 class SentryLdapBackend(LDAPBackend):
     def get_or_create_user(self, username, ldap_user):
         model = super(SentryLdapBackend, self).get_or_create_user(username, ldap_user)
@@ -56,7 +76,10 @@ class SentryLdapBackend(LDAPBackend):
         if not organizations or len(organizations) < 1:
             return model
 
-        member_role = getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE', 'member')
+        member_role = _get_effective_sentry_role(ldap_user.group_names)
+        if not member_role:
+            member_role = getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE')
+
         has_global_access = getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS', False)
 
         # Add the user to the organization with global access
