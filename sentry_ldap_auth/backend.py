@@ -26,7 +26,7 @@ def _get_effective_sentry_role(group_names):
     if not applicable_roles:
         return None
 
-    return max(applicable_roles, lambda role_name: role_priority[role_name])
+    return max(applicable_roles, key=lambda role_name: role_priority[role_name])
 
 
 class SentryLdapBackend(LDAPBackend):
