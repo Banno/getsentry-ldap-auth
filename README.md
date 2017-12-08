@@ -9,8 +9,21 @@ A Django custom authentication backend for [Sentry](https://github.com/getsentry
 ## Prerequisites
 Versions 2.0 and newer require Sentry 8. For Sentry 7 support, use [the 1.1 release](https://github.com/Banno/getsentry-ldap-auth/releases/tag/1.1)
 
+## Installation
+To install, simply add `sentry-ldap-auth` to your *requirements.txt* for your Sentry environment (or `pip install sentry-ldap-auth`).
+
 ## Configuration
-This module extends the [django-auth-ldap](https://pythonhosted.org/django-auth-ldap/) and all the options it provides are supported.
+This module extends the [django-auth-ldap](https://django-auth-ldap.readthedocs.io/en/latest/) and all the options it provides are supported (up to v1.2.x, at least). 
+
+To configure Sentry to use this module, add `sentry_ldap_auth.backend.SentryLdapBackend` to your `AUTHENTICATION_BACKENDS` in your *sentry.conf.py*, like this:
+
+```python
+AUTHENTICATION_BACKENDS = AUTHENTICATION_BACKENDS + (
+    'sentry_ldap_auth.backend.SentryLdapBackend',
+)
+```
+
+Then, add any applicable configuration options. Depending on your environment, and especially if you are running Sentry in containers, you might consider using [python-decouple](https://pypi.python.org/pypi/python-decouple) so you can set these options via environment variables.
 
 ### sentry-ldap-auth Specific Options
 
