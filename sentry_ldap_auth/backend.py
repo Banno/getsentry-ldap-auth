@@ -19,27 +19,23 @@ class SentryLdapBackend(LDAPBackend):
 
         user.is_managed = True
 
+        # Add the user email address
         try:
             from sentry.models import (UserEmail)
         except ImportError:
             pass
         else:
-            userEmail = UserEmail.objects.filter(user=user)
-            if not userEmail:
-                userEmail = UserEmail.objects.create(user=user)
-            else:
-                userEmail = userEmail[0]
-
-            if not hasattr(settings, 'AUTH_LDAP_DEFAULT_EMAIL_DOMAIN'):
-                email = ' '
+            if 'mail' in ldap_user.attrs:
+                email = ldap_user.attrs.get('mail')[0]
+            elif not hasattr(settings, 'AUTH_LDAP_DEFAULT_EMAIL_DOMAIN'):
+                email = ''
             else:
                 email = username + '@' + settings.AUTH_LDAP_DEFAULT_EMAIL_DOMAIN
-
-            if 'mail' in ldap_user.attrs:
-                userEmail.email = ldap_user.attrs.get('mail')[0]
-            else:
-                userEmail.email = email
-            userEmail.save()
+            
+            # django-auth-ldap may have accidentally created an empty email address
+            UserEmail.objects.filter(user=user, email='').delete()
+            if email:
+                UserEmail.objects.get_or_create(user=user, email=email)
 
         # Check to see if we need to add the user to an organization
         if not settings.AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION:
