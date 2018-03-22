@@ -50,6 +50,11 @@ this is useful for large organizations where a subscription to each project
 might be spammy.
 
 ```Python
+AUTH_LDAP_SENTRY_USERNAME_FIELD = 'uid'
+```
+Specify which attribute to use as the Sentry username, if different from what the user enters on the login page. You can use this to prevent multiple accounts from being created when your `AUTH_LDAP_USER_SEARCH` allows users to log in with different usernames (e.g. `(|(uid=%(user))(mail=%(user)))`). If multiple values exist for the attribute, the first value will be used.
+
+```Python
 AUTH_LDAP_DEFAULT_EMAIL_DOMAIN = 'example.com'
 ```
 Default domain to append to username as the Sentry user's e-mail address when the LDAP user has no `mail` attribute.
@@ -100,6 +105,7 @@ AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
 AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION = u'My Organization Name'
 AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE = 'member'
 AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS = True
+AUTH_LDAP_SENTRY_USERNAME_FIELD = 
 
 AUTHENTICATION_BACKENDS = AUTHENTICATION_BACKENDS + (
     'sentry_ldap_auth.backend.SentryLdapBackend',
