@@ -11,6 +11,14 @@ from sentry.models import (
 
 class SentryLdapBackend(LDAPBackend):
     def get_or_create_user(self, username, ldap_user):
+        username_field = getattr(settings, 'AUTH_LDAP_SENTRY_USERNAME_FIELD', '')
+        if username_field:
+            # pull the username out of the ldap_user info
+            if ldap_user and username_field in ldap_user.attrs:
+                username = ldap_user.attrs[username_field]
+                if isinstance(username, (list, tuple)):
+                    username = username[0]
+
         model = super(SentryLdapBackend, self).get_or_create_user(username, ldap_user)
         if len(model) < 1:
             return model
