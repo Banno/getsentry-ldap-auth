@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from django_auth_ldap.backend import LDAPBackend
 from django.conf import settings
+from django.db.models import Q
 from sentry.models import (
     Organization,
     OrganizationMember,
@@ -39,9 +40,9 @@ class SentryLdapBackend(LDAPBackend):
                 email = ''
             else:
                 email = username + '@' + settings.AUTH_LDAP_DEFAULT_EMAIL_DOMAIN
-            
+
             # django-auth-ldap may have accidentally created an empty email address
-            UserEmail.objects.filter(user=user, email='').delete()
+            UserEmail.objects.filter(Q(email='') | Q(email=' '), user=user).delete()
             if email:
                 UserEmail.objects.get_or_create(user=user, email=email)
 
