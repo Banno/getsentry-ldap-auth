@@ -26,7 +26,7 @@ setup(
     zip_safe=False,
     install_requires=install_requires,
     include_package_data=True,
-    download_url='https://github.com/banno/getsentry-ldap-auth/tarball/1.1',
+    download_url='https://github.com/banno/getsentry-ldap-auth/tarball/2.7',
     classifiers=[
         'Framework :: Django',
         'Intended Audience :: Developers',
