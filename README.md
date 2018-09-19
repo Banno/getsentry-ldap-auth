@@ -30,7 +30,11 @@ Then, add any applicable configuration options. Depending on your environment, a
 ```Python
 AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION = u'My Organization Name'
 ```
-Auto adds created user to the specified organization (matched by name) if it exists.
+Auto adds created user to the specified organization (matched by name) if it exists. It can be a list of organizations like:
+
+```Python
+AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION = u'My Organization Name,sentry'
+```
 
 ```Python
 AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE = 'member'
