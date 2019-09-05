@@ -1,6 +1,6 @@
 # sentry-ldap-auth
 
-A Django custom authentication backend for [Sentry](https://github.com/getsentry/sentry). This module extends the functionality of [django-auth-ldap](https://pythonhosted.org/django-auth-ldap/) with Sentry specific features.
+A Django custom authentication backend for [Sentry](https://github.com/getsentry/sentry). This module extends the functionality of [django-auth-ldap](https://github.com/django-auth-ldap/django-auth-ldap) with Sentry specific features.
 
 ## Features
 * Users created by this backend are managed users. Managed fields are not editable through the Sentry account page.
