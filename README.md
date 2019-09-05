@@ -104,6 +104,11 @@ AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
 
 AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION = u'My Organization Name'
 AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE = 'member'
+AUTH_LDAP_SENTRY_GROUP_ROLE_MAPPING = {
+    'owner': ['sysadmins'],
+    'admin': ['devleads'],
+    'member': ['developers', 'seniordevelopers']
+}
 AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS = True
 AUTH_LDAP_SENTRY_USERNAME_FIELD = 'uid'
 
