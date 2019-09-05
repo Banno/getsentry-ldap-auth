@@ -81,7 +81,7 @@ class SentryLdapBackend(LDAPBackend):
 
         member_role = _get_effective_sentry_role(ldap_user.group_names)
         if not member_role:
-            member_role = getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE', 'member')
+            member_role = getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE', None)
 
         has_global_access = getattr(settings, 'AUTH_LDAP_SENTRY_ORGANIZATION_GLOBAL_ACCESS', False)
 
