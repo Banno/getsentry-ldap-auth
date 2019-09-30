@@ -15,7 +15,7 @@ install_requires = [
 
 setup(
     name='sentry-ldap-auth',
-    version='2.7',
+    version='2.8',
     author='Chad Killingsworth <chad.killingsworth@banno.com>, Barron Hagerman <barron.hagerman@banno.com>',
     author_email='chad.killingsworth@banno.com',
     url='http://github.com/banno/getsentry-ldap-auth',
