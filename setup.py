@@ -8,6 +8,9 @@ an LDAP server and auto-adds them to the an organization in sentry.
 """
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as readme:
+    long_description = readme.read()
+
 install_requires = [
     'django-auth-ldap==1.2.*',
     'sentry>=8.0.0',
@@ -19,8 +22,9 @@ setup(
     author='Chad Killingsworth <chad.killingsworth@banno.com>, Barron Hagerman <barron.hagerman@banno.com>',
     author_email='chad.killingsworth@banno.com',
     url='http://github.com/banno/getsentry-ldap-auth',
-    description='A Sentry extension to add an LDAP server as an authention source.',
-    long_description=__doc__,
+    description='A Sentry extension to add an LDAP server as an authentication source.',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=find_packages(),
     license='Apache-2.0',
     zip_safe=False,
