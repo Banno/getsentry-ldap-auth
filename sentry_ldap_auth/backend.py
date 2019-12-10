@@ -18,7 +18,7 @@ def _get_effective_sentry_role(group_names):
         'owner',
     ]
 
-    role_mapping = getattr(settings, 'AUTH_LDAP_SENTRY_GROUP_ROLE_MAPPING')
+    role_mapping = getattr(settings, 'AUTH_LDAP_SENTRY_GROUP_ROLE_MAPPING', None)
 
     if not group_names or not role_mapping:
         return None
