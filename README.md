@@ -10,10 +10,14 @@ A Django custom authentication backend for [Sentry](https://github.com/getsentry
 Versions 2.0 and newer require Sentry 8. For Sentry 7 support, use [the 1.1 release](https://github.com/Banno/getsentry-ldap-auth/releases/tag/1.1)
 
 ## Installation
-To install, simply add `sentry-ldap-auth` to your *requirements.txt* for your Sentry environment (or `pip install sentry-ldap-auth`).
-
+To install, simply add `sentry-ldap-auth` to your *requirements.txt* in your Sentry environment 
+and install gcc in your *Dockerfile* in the same config 
+```shell script
+RUN apt-get update && apt-get install -y gcc
+```
 ## Configuration
-This module extends the [django-auth-ldap](https://django-auth-ldap.readthedocs.io/en/latest/) and all the options it provides are supported (up to v1.2.x, at least). 
+This module extends the [django-auth-ldap](https://django-auth-ldap.readthedocs.io/en/latest/) and almost all the options are supported (up until 1.7.*)
+One options that's not supported is `AUTH_LDAP_MIRROR_GROUPS` .
 
 To configure Sentry to use this module, add `sentry_ldap_auth.backend.SentryLdapBackend` to your `AUTHENTICATION_BACKENDS` in your *sentry.conf.py*, like this:
 

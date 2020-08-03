@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from django_auth_ldap.backend import LDAPBackend
 from django.conf import settings
 from django.db.models import Q
+from django_auth_ldap.backend import LDAPBackend
 from sentry.models import (
     Organization,
     OrganizationMember,
@@ -34,7 +34,7 @@ def _get_effective_sentry_role(group_names):
 
 
 class SentryLdapBackend(LDAPBackend):
-    def get_or_create_user(self, username, ldap_user):
+    def get_or_build_user(self, username, ldap_user):
         username_field = getattr(settings, 'AUTH_LDAP_SENTRY_USERNAME_FIELD', '')
         if username_field:
             # pull the username out of the ldap_user info
@@ -43,7 +43,7 @@ class SentryLdapBackend(LDAPBackend):
                 if isinstance(username, (list, tuple)):
                     username = username[0]
 
-        model = super(SentryLdapBackend, self).get_or_create_user(username, ldap_user)
+        model = super(SentryLdapBackend, self).get_or_build_user(username, ldap_user)
         if len(model) < 1:
             return model
 
