@@ -67,6 +67,7 @@ class SentryLdapBackend(LDAPBackend):
             # django-auth-ldap may have accidentally created an empty email address
             UserEmail.objects.filter(Q(email='') | Q(email=' '), user=user).delete()
             if email:
+                user.save()  # Save to avoid unsaved related object value error
                 UserEmail.objects.get_or_create(user=user, email=email)
 
         # Check to see if we need to add the user to an organization
