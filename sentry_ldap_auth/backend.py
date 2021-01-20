@@ -23,7 +23,7 @@ def _get_effective_sentry_role(group_names):
     if not group_names or not role_mapping:
         return None
 
-    applicable_roles = [role for role, groups in role_mapping.iteritems() if group_names.intersection(groups)]
+    applicable_roles = [role for role, groups in role_mapping.items() if group_names.intersection(groups)]
 
     if not applicable_roles:
         return None
