@@ -1,5 +1,8 @@
 # sentry-ldap-auth
 
+> This module is deprecated in favor of [sentry-auth-ldap](https://pypi.org/project/sentry-auth-ldap),
+> a fork of this project maintained at https://github.com/PMExtra/sentry-auth-ldap.
+
 A Django custom authentication backend for [Sentry](https://github.com/getsentry/sentry). This module extends the functionality of [django-auth-ldap](https://github.com/django-auth-ldap/django-auth-ldap) with Sentry specific features.
 
 ## Features
